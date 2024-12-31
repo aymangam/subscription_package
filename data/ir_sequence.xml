@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  Sequence number generation-->
+    <data noupdate="1">
+        <record id="sequence_reference_code" model="ir.sequence">
+            <field name="name">Reference Code</field>
+            <field name="code">sequence.reference.code</field>
+            <field name="prefix"></field>
+            <field name="padding">5</field>
+            <field name="number_next">10001</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

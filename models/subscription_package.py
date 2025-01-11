@@ -1,24 +1,4 @@
-# -*- coding: utf-8 -*-
-#############################################################################
-#
-#    Cybrosys Technologies Pvt. Ltd.
-#
-#    Copyright (C) 2024-TODAY Cybrosys Technologies(<https://www.cybrosys.com>)
-#    Author: JANISH BABU (<https://www.cybrosys.com>)
-#
-#    You can modify it under the terms of the GNU AFFERO
-#    GENERAL PUBLIC LICENSE (AGPL v3), Version 3.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU AFFERO GENERAL PUBLIC LICENSE (AGPL v3) for more details.
-#
-#    You should have received a copy of the GNU AFFERO GENERAL PUBLIC LICENSE
-#    (AGPL v3) along with this program.
-#    If not, see <http://www.gnu.org/licenses/>.
-#
-#############################################################################
+
 from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, SUPERUSER_ID, _
 from odoo.exceptions import UserError
@@ -62,10 +42,10 @@ class SubscriptionPackage(models.Model):
                                           related='partner_id')
     plan_id = fields.Many2one('subscription.package.plan',
                               string='Subscription Plan',
-                              help="Choose the subscription package plan")
+                              help="Choose the subscription package plan", tracking=True)
     start_date = fields.Date(string='Period Start Date',
                              help='Add the period start date',
-                             ondelete='restrict')
+                             ondelete='restrict', tracking=True)
     date_started = fields.Date(string='Subsciption Start date',
                                help='Add the Subscription package start date',
                                ondelete='restrict', readonly=True)
@@ -154,6 +134,9 @@ class SubscriptionPackage(models.Model):
                                       help="The count of associated "
                                            "sale orders for this record.")
     is_finished = fields.Boolean()
+    is_progress = fields.Boolean()
+    attendance = fields.One2many('gym.attendance', 'subscription_id')
+
 
     def action_subscription_id_card(self):
         """For printing subscription id card"""
@@ -523,3 +506,6 @@ class SubscriptionPackage(models.Model):
         """ The function is used to perform the resume
         action for the subscription package."""
         self.stage_id = self.env.ref('subscription_package.progress_stage').id
+        self.is_progress = True
+        self.is_finished = False
+

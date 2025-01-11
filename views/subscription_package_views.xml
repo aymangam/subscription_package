@@ -13,6 +13,7 @@
             </p>
         </field>
     </record>
+
     <record id="res_partner_action"
             model="ir.actions.act_window">
         <field name="name">Subscriptions Customers</field>
@@ -44,8 +45,9 @@
         <field name="name">subscription.package.view.tree</field>
         <field name="model">subscription.package</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="(is_finished)">
+            <tree decoration-danger="(is_finished)" decoration-success="(is_progress)">
                 <field name="is_finished" invisible="1" optional="hide"/>
+                <field name="is_progress" invisible="1" optional="hide"/>
                 <field name="name"/>
                 <field name="stage_id"/>
                 <field name="partner_id"/>
@@ -73,7 +75,7 @@
                             invisible="stage_category != 'draft'"/>
                     <button name="button_resume" string="Resume"
                             type="object" class="btn-primary"
-                            invisible="stage_category != 'paused'"/>
+                            invisible="stage_category not in ['paused', 'closed']"/>
                     <button name="button_sale_order" string="Create Sale Order"
                             type="object" class="btn-primary"
                             invisible="stage_category != 'progress' or so_count > 0"/>
@@ -201,6 +203,13 @@
                                     <field name="sale_order_id"/>
                                 </group>
                                 <group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Attendance" name="attendance">
+                            <group>
+                                <group>
+                                    <field name="attendance" readonly="1"/>
                                 </group>
                             </group>
                         </page>

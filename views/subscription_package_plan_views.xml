@@ -85,8 +85,8 @@
                             </div>
                         </group>
                         <group id="invoicing_right">
-                            <field name="renewal_time" invisible="1"/>
-                            <field name="days_to_end" invisible="1"/>
+                            <field name="renewal_time" invisible="0"/>
+                            <field name="days_to_end" invisible="0"/>
                             <field name="invoice_mode" string="Create Invoice"
                                    widget="radio" required="True"/>
                             <field name="short_code"/>

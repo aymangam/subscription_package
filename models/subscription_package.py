@@ -259,6 +259,9 @@ class SubscriptionPackage(models.Model):
 
     def button_close(self):
         """ Button for subscription close wizard """
+        self.is_progress = False
+        self.is_finished = True
+        print("inside button_close")
         return {
             'name': "Subscription Close Reason",
             'type': 'ir.actions.act_window',

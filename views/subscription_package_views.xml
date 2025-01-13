@@ -45,9 +45,7 @@
         <field name="name">subscription.package.view.tree</field>
         <field name="model">subscription.package</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="(is_finished)" decoration-success="(is_progress)">
-                <field name="is_finished" invisible="1" optional="hide"/>
-                <field name="is_progress" invisible="1" optional="hide"/>
+            <tree decoration-success="stage_id == 2" decoration-danger="stage_id == 3" decoration-warning="stage_id == 4">
                 <field name="name"/>
                 <field name="stage_id"/>
                 <field name="partner_id"/>

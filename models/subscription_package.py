@@ -133,8 +133,6 @@ class SubscriptionPackage(models.Model):
     sale_order_count = fields.Integer(string='Sale Order Count',
                                       help="The count of associated "
                                            "sale orders for this record.")
-    is_finished = fields.Boolean()
-    is_progress = fields.Boolean()
     attendance = fields.One2many('gym.attendance', 'subscription_id')
 
 
@@ -177,7 +175,7 @@ class SubscriptionPackage(models.Model):
         for rec in self:
             if rec.next_invoice_date and rec.next_invoice_date < fields.Date.today():
                 rec.stage_id = 3
-                rec.is_finished = True
+
 
     def _valid_field_parameter(self, field, name):
         """Check the validity of a field parameter for a specific field."""
@@ -259,9 +257,6 @@ class SubscriptionPackage(models.Model):
 
     def button_close(self):
         """ Button for subscription close wizard """
-        self.is_progress = False
-        self.is_finished = True
-        print("inside button_close")
         return {
             'name': "Subscription Close Reason",
             'type': 'ir.actions.act_window',
@@ -509,6 +504,5 @@ class SubscriptionPackage(models.Model):
         """ The function is used to perform the resume
         action for the subscription package."""
         self.stage_id = self.env.ref('subscription_package.progress_stage').id
-        self.is_progress = True
-        self.is_finished = False
+
 
